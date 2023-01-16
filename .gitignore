@@ -126,4 +126,5 @@ log/runtime.log
 
 test.py
 dataset/data/*
+ckpt/*
 
