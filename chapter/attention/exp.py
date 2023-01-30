@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 
 from utils.grad_cam import GradCAM, show_cam_on_image
-from dataset.data_loader import mk_loader
+from dataset.data_loader import origin_dataset_loader
 from models.cnn import CnnWithCbam
 
 def sample_one_data(dataloader, label_id):
@@ -20,7 +20,7 @@ def sample_one_data(dataloader, label_id):
 
 def gen_heat_map(img, model):
 
-	target_layers = [model.conv1, model.conv2]
+	target_layers = [model.cbam1, model.cbam2]
 
 	# data_transform = transforms.Compose([transforms.ToTensor(),
     #                                      transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
@@ -33,7 +33,7 @@ def gen_heat_map(img, model):
 	input_tensor = torch.unsqueeze(img_tensor, dim=0)
 
 	cam = GradCAM(model=model, target_layers=target_layers, use_cuda=False)
-	target_category = 7
+	target_category = 2
 
 	grayscale_cam = cam(input_tensor=input_tensor, target_category=target_category)
 

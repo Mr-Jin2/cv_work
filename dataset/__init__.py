@@ -1,1 +1,1 @@
-from .data_loader import mk_loader
+from .data_loader import origin_dataset_loader, custom_dataset_loader
